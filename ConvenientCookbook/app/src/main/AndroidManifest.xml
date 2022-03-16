@@ -21,6 +21,12 @@
         <activity android:name=".DetailActivity"
             android:parentActivityName=".MainActivity">
         </activity>
+        <activity android:name=".ViewActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity android:name=".PostActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>

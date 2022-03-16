@@ -1,14 +1,14 @@
 {
   "recipes": [
     {
-      "recipeName": "Grilled Cheese",
-      "recipeDescription": "A grilled sandwich with cheese in the middle.",
-      "recipeIngredients": "2 slices white bread\\n2tbsp butter\\n1 slice cheddar cheese",
-      "recipeSteps": "Butter both slices of bread\\nPut cheese in the middle\\nTurn on medium heat on pan\\nPut butter in pan\\nPut sandwich on pan and grill both sides until lightly browned.",
-      "vegetarian": "yes",
-      "vegan": "no",
-      "glutenFree": "no",
-      "dairyFree": "no"
+      "recipeName": "Grilled Cheese\n\n",
+      "recipeDescription": "A grilled sandwich with cheese in the middle.\n\n",
+      "recipeIngredients": "Ingredients:\n2 slices white bread\n2tbsp butter\n1 slice cheddar cheese\n\n",
+      "recipeSteps": "Steps:\nButter both slices of bread\nPut cheese in the middle\nTurn on medium heat on pan\nPut butter in pan\nPut sandwich on pan and grill both sides until lightly browned.\n\n",
+      "vegetarian": "Vegetarian: yes\n",
+      "vegan": "Vegan: no\n",
+      "glutenFree": "Gluten Free: no\n",
+      "dairyFree": "Dairy Free: no\n"
     }
   ]
 }

@@ -15,14 +15,13 @@ import ca.unb.mobiledev.convenientcookbook.model.Recipe;
 
 public class JsonUtils {
 
-
     private static final String CS_JSON_FILE = "Recipes.json";
 
     private static final String KEY_RECIPES = "recipes";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_DESCRIPTION = "description";
-    private static final String KEY_INGREDIENTS = "ingredients";
-    private static final String KEY_STEPS = "steps";
+    private static final String KEY_NAME = "recipeName";
+    private static final String KEY_DESCRIPTION = "recipeDescription";
+    private static final String KEY_INGREDIENTS = "recipeIngredients";
+    private static final String KEY_STEPS = "recipeSteps";
 
     private static final String KEY_VEGETARIAN = "vegetarian";
     private static final String KEY_VEGAN = "vegan";
@@ -36,7 +35,7 @@ public class JsonUtils {
     }
 
     private void processJSON(Context context){
-        recipeArray = new ArrayList();
+        recipeArray = new ArrayList<>();
 
         try{
             JSONObject jsonObject = new JSONObject(Objects.requireNonNull(loadJSONFromAssets(context)));
@@ -55,7 +54,6 @@ public class JsonUtils {
         catch(JSONException e){
             e.printStackTrace();
         }
-
     }
 
     private String loadJSONFromAssets(Context context){
