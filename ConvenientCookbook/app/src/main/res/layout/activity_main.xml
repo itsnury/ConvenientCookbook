@@ -9,14 +9,35 @@
         android:id="@+id/viewBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="View"/>
     <Button
         android:id="@+id/postBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/viewBtn"
-        android:text="Post"/>
-
+        android:layout_centerInParent="true"
+        android:layout_toRightOf="@+id/viewBtn"
+        android:text="Post" />
+    <TextView
+        android:id="@+id/titleTextView"
+        android:gravity="center"
+        android:paddingTop="275dp"
+        android:paddingLeft="20dp"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/subtitleTextView"
+        android:gravity="center"
+        android:paddingTop="305dp"
+        android:paddingLeft="20dp"
+        android:textSize="15dp"
+        android:textStyle="italic"
+        android:textColor="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

@@ -25,8 +25,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button viewBtn = (Button) findViewById(R.id.viewBtn);
-        Button postBtn = (Button) findViewById(R.id.postBtn);
+        Button viewBtn = findViewById(R.id.viewBtn);
+        Button postBtn = findViewById(R.id.postBtn);
+        TextView textView = findViewById(R.id.titleTextView);
+        TextView textView1 = findViewById(R.id.subtitleTextView);
+
+        textView.setText("Convenient Cookbook");
+        textView1.setText("Recipes for everybody");
 
         viewBtn.setOnClickListener(new View.OnClickListener(){
             @Override
