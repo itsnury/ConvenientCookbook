@@ -1,94 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:orientation="vertical"
     tools:context="ca.unb.mobiledev.convenientcookbook.PostActivity">
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/postPage"
+        android:text="@string/post_page"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:paddingLeft="140dp"
+        android:paddingLeft="155dp"
         android:paddingTop="10dp">
     </TextView>
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recipeName"
-        android:textSize="15dp"
-        android:paddingLeft="30dp"
-        android:paddingTop="50dp">
-    </TextView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recipeDescription"
-        android:textSize="15dp"
-        android:paddingLeft="30dp"
-        android:paddingTop="90dp">
-    </TextView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recipeIngredients"
-        android:textSize="15dp"
-        android:paddingLeft="30dp"
-        android:paddingTop="170dp">
-    </TextView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recipeSteps"
-        android:textSize="15dp"
-        android:paddingLeft="30dp"
-        android:paddingTop="250dp">
-    </TextView>
-    <EditText
-        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/nameTextbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Recipe name"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/descriptionTextbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameTextbox"
+            android:hint="Recipe description"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/ingredientsTextbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/descriptionTextbox"
+            android:hint="Ingredients (Enter for next ingredient)"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/stepsTextbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ingredientsTextbox"
+            android:hint="Steps (Enter for next step)"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minHeight="48dp" />
+    </RelativeLayout>
+
+    <CheckBox
+        android:id="@+id/vegetarianCheckbox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/nameTextbox"
-        android:inputType="textCapSentences|textMultiLine"
-        android:layout_alignParentStart="true"
-        android:paddingLeft="130dp"
-        android:paddingTop="50dp"
-        android:focusableInTouchMode="true" >
-    </EditText>
-    <EditText
-        android:layout_width="match_parent"
+        android:layout_below="@id/stepsTextbox"
+        android:layout_centerInParent="true"
+        android:minHeight="48dp"
+        android:onClick="onCheckboxClicked"
+        android:text="Vegetarian" />
+
+    <CheckBox
+        android:id="@+id/veganCheckbox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/descriptionTextbox"
-        android:inputType="textCapSentences|textMultiLine"
-        android:layout_alignParentStart="true"
-        android:paddingLeft="160dp"
-        android:paddingTop="90dp"
-        android:focusableInTouchMode="true" >
-    </EditText>
-    <EditText
-        android:layout_width="match_parent"
+        android:layout_below="@id/vegetarianCheckbox"
+        android:layout_centerInParent="true"
+        android:minHeight="48dp"
+        android:onClick="onCheckboxClicked"
+        android:text="Vegan" />
+
+    <CheckBox
+        android:id="@+id/dairyFreeCheckbox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ingredientsTextbox"
-        android:inputType="textCapSentences|textMultiLine"
-        android:layout_alignParentStart="true"
-        android:paddingLeft="110dp"
-        android:paddingTop="170dp"
-        android:focusableInTouchMode="true">
-    </EditText>
-    <EditText
-        android:layout_width="match_parent"
+        android:layout_below="@id/veganCheckbox"
+        android:layout_centerInParent="true"
+        android:minHeight="48dp"
+        android:onClick="onCheckboxClicked"
+        android:text="Dairy-free" />
+
+    <CheckBox
+        android:id="@+id/glutenFreeCheckbox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/stepsTextbox"
-        android:inputType="textCapSentences|textMultiLine"
-        android:layout_alignParentStart="true"
-        android:paddingLeft="110dp"
-        android:paddingTop="250dp"
-        android:focusableInTouchMode="true" >
-    </EditText>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id = "@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-</RelativeLayout>
+        android:layout_below="@id/dairyFreeCheckbox"
+        android:layout_centerInParent="true"
+        android:minHeight="48dp"
+        android:onClick="onCheckboxClicked"
+        android:text="Gluten-free" />
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/glutenFreeCheckbox"
+        android:layout_centerInParent="true"
+        android:text="Submit recipe"/>
+</LinearLayout>
