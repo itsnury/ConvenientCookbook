@@ -46,11 +46,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,PostActivity.class));
             }
         });
-//        JsonUtils utils = new JsonUtils(MainActivity.this);
-//        ArrayList<Recipe> list = utils.getRecipes();
-//
-//        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-//        MyAdapter adapter = new MyAdapter(list, MainActivity.this);
-//        recyclerView.setAdapter(adapter);
     }
 }
