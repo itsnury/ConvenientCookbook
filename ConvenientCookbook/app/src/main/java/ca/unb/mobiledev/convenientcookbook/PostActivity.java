@@ -7,16 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONObject;
-
 import ca.unb.mobiledev.convenientcookbook.model.Recipe;
 import ca.unb.mobiledev.convenientcookbook.util.JsonUtils;
-import ca.unb.mobiledev.convenientcookbook.util.PostJsonUtils;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -84,7 +80,7 @@ public class PostActivity extends AppCompatActivity {
                     recipeIngredients.matches("") || recipeSteps.matches(""))){
                 Recipe recipe = new Recipe.Builder(recipeName, recipeDescription, recipeIngredients, recipeSteps,
                         isVegetarian, isVegan, isGlutenFree, isDairyFree).build();
-                addRecipe(recipe);
+                addRecipe(recipe, PostActivity.this);
             }else{
                 Context context = getApplicationContext();
                 String text = "All fields are required.";
@@ -131,9 +127,9 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
-    private void addRecipe(Recipe recipe){
-        PostJsonUtils jsonUtils = new PostJsonUtils(PostActivity.this);
-        jsonUtils.addRecipe(recipe);
+    private void addRecipe(Recipe recipe, Context context){
+        JsonUtils utils = new JsonUtils(context);
+        utils.addRecipe(recipe, context);
 
         startActivity(new Intent(PostActivity.this,ViewActivity.class));
     }

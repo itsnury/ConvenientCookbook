@@ -3,17 +3,22 @@ package ca.unb.mobiledev.convenientcookbook.util;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 
 import ca.unb.mobiledev.convenientcookbook.model.Recipe;
 
@@ -33,6 +38,8 @@ public class JsonUtils {
     private static final String KEY_DAIRYFREE = "dairyFree";
 
     private ArrayList<Recipe> recipeArray;
+    private JSONObject jsonObject;
+    private JSONArray jsonArray;
 
     public JsonUtils(Context context){
         processJSON(context);
@@ -42,17 +49,17 @@ public class JsonUtils {
         recipeArray = new ArrayList<>();
 
         try{
-            JSONObject jsonObject = new JSONObject(Objects.requireNonNull(loadJSONFromAssets(context)));
-
-            JSONArray jsonArray = jsonObject.getJSONArray(KEY_RECIPES);
+            jsonObject = new JSONObject(Objects.requireNonNull(loadJSONFromAssets(context)));
+            jsonArray = jsonObject.getJSONArray(KEY_RECIPES);
 
             for(int i=0; i<jsonArray.length(); i++){
                 JSONObject myObj = (JSONObject) jsonArray.get(i);
 
-                Recipe recipe = new Recipe.Builder(myObj.getString(KEY_NAME), myObj.getString(KEY_DESCRIPTION), myObj.getString(KEY_INGREDIENTS),
-                        myObj.getString(KEY_STEPS), myObj.getString(KEY_VEGETARIAN), myObj.getString(KEY_VEGAN), myObj.getString(KEY_GLUTENFREE), myObj.getString(KEY_DAIRYFREE)).build();
-
-                recipeArray.add(recipe);
+                if(!myObj.isNull("recipeName")) {
+                    Recipe recipe = new Recipe.Builder(myObj.getString(KEY_NAME), myObj.getString(KEY_DESCRIPTION), myObj.getString(KEY_INGREDIENTS),
+                            myObj.getString(KEY_STEPS), myObj.getString(KEY_VEGETARIAN), myObj.getString(KEY_VEGAN), myObj.getString(KEY_GLUTENFREE), myObj.getString(KEY_DAIRYFREE)).build();
+                    recipeArray.add(recipe);
+                }
             }
         }
         catch(JSONException e){
@@ -78,5 +85,36 @@ public class JsonUtils {
         return "";
     }
 
-    public ArrayList<Recipe> getRecipes(){ return recipeArray;}
+    public ArrayList<Recipe> getRecipes(){
+        return recipeArray;
+    }
+
+    public void addRecipe(Recipe recipe, Context context){
+        try {
+            JSONObject newObj = new JSONObject();
+
+            newObj.put(KEY_NAME, recipe.getName());
+            newObj.put(KEY_DESCRIPTION, recipe.getDescription());
+            newObj.put(KEY_INGREDIENTS, recipe.getIngredients());
+            newObj.put(KEY_STEPS, recipe.getSteps());
+            newObj.put(KEY_VEGETARIAN, recipe.isVegetarian());
+            newObj.put(KEY_VEGAN, recipe.isVegan());
+            newObj.put(KEY_GLUTENFREE, recipe.isGlutenFree());
+            newObj.put(KEY_DAIRYFREE, recipe.isDairyFree());
+
+            jsonArray.put(newObj);
+            try{
+                File file = new File(context.getFilesDir(), "Recipes.json");
+                Writer output = new BufferedWriter(new FileWriter(file));
+                output.write(jsonArray.toString());
+                output.close();
+                Toast.makeText(context, "Recipe Added!", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
