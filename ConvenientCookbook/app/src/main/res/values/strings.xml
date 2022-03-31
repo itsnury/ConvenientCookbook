@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Convenient Cookbook</string>
     <string name="post_page">Post Page</string>
+    <string-array name="dropdown">
+        <item>All</item>
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>Gluten-free</item>
+        <item>Dairy-free</item>
+    </string-array>
 </resources>

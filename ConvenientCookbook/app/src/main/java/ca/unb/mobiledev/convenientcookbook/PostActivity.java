@@ -67,13 +67,13 @@ public class PostActivity extends AppCompatActivity {
             recipeSteps = stepsTextbox.getText().toString();
 
             if(isVegetarian.matches("")){
-                isVegetarian = "Vegetarian: no";
+                isVegetarian = "Vegetarian: no\n";
             }else if(isVegan.matches("")){
-                isVegan = "Vegan: no";
+                isVegan = "Vegan: no\n";
             }else if(isDairyFree.matches("")){
-                isDairyFree = "Dairy Free: no";
+                isDairyFree = "Dairy Free: no\n";
             }else if(isGlutenFree.matches("")){
-                isGlutenFree = "Gluten Free: no";
+                isGlutenFree = "Gluten Free: no\n";
             }
 
             if(!(recipeName.matches("") || recipeDescription.matches("") ||
@@ -99,36 +99,36 @@ public class PostActivity extends AppCompatActivity {
         switch(v.getId()){
             case R.id.vegetarianCheckbox:
                 if(checked){
-                    isVegetarian = "Vegetarian: yes";
+                    isVegetarian = "Vegetarian: yes\n";
                 }else{
-                    isVegetarian = "Vegetarian: no";
+                    isVegetarian = "Vegetarian: no\n";
                 }
                 break;
             case R.id.veganCheckbox:
                 if(checked){
-                    isVegan = "Vegan: yes";
+                    isVegan = "Vegan: yes\n";
                 }else{
-                    isVegan = "Vegan: no";
+                    isVegan = "Vegan: no\n";
                 }
                 break;
             case R.id.dairyFreeCheckbox:
                 if(checked){
-                    isDairyFree = "Dairy Free: yes";
+                    isDairyFree = "Dairy Free: yes\n";
                 }else{
-                    isDairyFree = "Dairy Free: no";
+                    isDairyFree = "Dairy Free: no\n";
                 }
                 break;
             case R.id.glutenFreeCheckbox:
                 if(checked){
-                    isGlutenFree = "Gluten Free: yes";
+                    isGlutenFree = "Gluten Free: yes\n";
                 }else{
-                    isGlutenFree = "Gluten Free: no";
+                    isGlutenFree = "Gluten Free: no\n";
                 }
         }
     }
 
     private void addRecipe(Recipe recipe, Context context){
-        JsonUtils utils = new JsonUtils(context);
+        JsonUtils utils = new JsonUtils(context, -1);
         utils.addRecipe(recipe, context);
 
         startActivity(new Intent(PostActivity.this,ViewActivity.class));

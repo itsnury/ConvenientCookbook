@@ -5,10 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ca.unb.mobiledev.convenientcookbook.ViewActivity">
-
+    <Spinner
+        android:id="@+id/dropdown_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+    ></Spinner>
     <androidx.recyclerview.widget.RecyclerView
         android:id = "@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/dropdown_menu"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 </RelativeLayout>
