@@ -1,27 +1,29 @@
 package ca.unb.mobiledev.convenientcookbook;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import ca.unb.mobiledev.convenientcookbook.model.Recipe;
-import ca.unb.mobiledev.convenientcookbook.util.JsonUtils;
 
 public class ViewActivity extends AppCompatActivity {
+    private RecipeViewModel recipeViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,38 +39,91 @@ public class ViewActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                JsonUtils utils = null;
                 String selected = parent.getItemAtPosition(position).toString();
 
                 //0 vegetarian, 1 vegan, 2 gluten free, 3 dairy free
                 if(selected.equals("Vegetarian")) {
-                    utils = new JsonUtils(ViewActivity.this, 0);
+                    try {
+                        searchRecords("vegetarian");
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }else if(selected.equals("Vegan")) {
-                    utils = new JsonUtils(ViewActivity.this, 1);
+                    try {
+                        searchRecords("vegan");
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }else if(selected.equals("Gluten-free")) {
-                    utils = new JsonUtils(ViewActivity.this, 2);
+                    try {
+                        searchRecords("gluten free");
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }else if(selected.equals("Dairy-free")) {
-                    utils = new JsonUtils(ViewActivity.this, 3);
+                    try {
+                        searchRecords("dairy free");
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }else if(selected.equals("All")){
-                    utils = new JsonUtils(ViewActivity.this, -1);
+                    try {
+                        searchRecords("all");
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-
-                ArrayList<Recipe> list = utils.getRecipes();
-                show(list);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                JsonUtils utils = new JsonUtils(ViewActivity.this, -1);
-                ArrayList<Recipe> list = utils.getRecipes();
-                show(list);
+                try {
+                    searchRecords("all");
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
+
+        // Set the ViewModel
+        recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
     }
 
     public void show(ArrayList<Recipe> list){
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         MyAdapter adapter = new MyAdapter(list, ViewActivity.this);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void searchRecords(String item) throws ExecutionException, InterruptedException {
+        // TODO
+        //  Make a call to the view model to search for records in the database that match the query item.
+        //  Make sure that the results are sorted appropriately
+        ArrayList<Recipe> list = (ArrayList<Recipe>) recipeViewModel.getItems(item);
+        // TODO
+        //  Update the results section.
+        //  If there are no results, set the results TextView to indicate that there are no results.
+        //  If there are results, set the results TextView to indicate that there are results.
+        //  Again, you might need to write a bit of extra code here or elsewhere, to get the UI to behave nicely
+
+        if(list.isEmpty()){
+            Log.w("TAG", "empty list");
+        }else{
+            Log.w("TAG", "not empty");
+
+            show(list);
+        }
     }
 }

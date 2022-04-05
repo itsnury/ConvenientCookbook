@@ -1,7 +1,6 @@
 package ca.unb.mobiledev.convenientcookbook;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,9 +9,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import ca.unb.mobiledev.convenientcookbook.model.Recipe;
-import ca.unb.mobiledev.convenientcookbook.util.JsonUtils;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -34,6 +33,8 @@ public class PostActivity extends AppCompatActivity {
     private CheckBox veganCheckbox;
     private CheckBox dairyFreeCheckbox;
     private CheckBox glutenFreeCheckbox;
+
+    private RecipeViewModel recipeViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class PostActivity extends AppCompatActivity {
                     recipeIngredients.matches("") || recipeSteps.matches(""))){
                 Recipe recipe = new Recipe.Builder(recipeName, recipeDescription, recipeIngredients, recipeSteps,
                         isVegetarian, isVegan, isGlutenFree, isDairyFree).build();
-                addRecipe(recipe, PostActivity.this);
+                addRecipe(recipe);
             }else{
                 Context context = getApplicationContext();
                 String text = "All fields are required.";
@@ -90,6 +91,8 @@ public class PostActivity extends AppCompatActivity {
                 toast.show();
             }
         });
+
+        recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
     }
 
     public void onCheckboxClicked(View v){
@@ -127,10 +130,9 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
-    private void addRecipe(Recipe recipe, Context context){
-        JsonUtils utils = new JsonUtils(context, -1);
-        utils.addRecipe(recipe, context);
-
-        startActivity(new Intent(PostActivity.this,ViewActivity.class));
+    private void addRecipe(Recipe recipe) {
+        // TODO
+        //  Make a call to the view model to create a record in the database table
+        recipeViewModel.insert(recipe);
     }
 }
