@@ -42,6 +42,8 @@ public class PostActivity extends AppCompatActivity {
 
     private DBManager dbManager;
 
+
+
     private int currentId = 0;
 
     @Override
@@ -148,7 +150,6 @@ public class PostActivity extends AppCompatActivity {
         // TODO
         //  Make a call to the view model to create a record in the database table
 
-        dbManager.insertRecord(recipe.getId(), recipe.getName(), recipe.getDescription(), recipe.getIngredients(),
-                recipe.getSteps(), recipe.isVegetarian(), recipe.isVegan(),recipe.isGlutenFree(), recipe.isDairyFree());
+        recipeViewModel.addRecord(recipe);
     }
 }

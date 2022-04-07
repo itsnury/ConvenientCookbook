@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -19,15 +21,19 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import ca.unb.mobiledev.convenientcookbook.model.Recipe;
 
 public class ViewActivity extends AppCompatActivity {
     private RecipeViewModel recipeViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
+
 
         Spinner spinner = (Spinner) findViewById(R.id.dropdown_menu);
         //String[] dropdown = new String[]{"Vegetarian", "Vegan", "Gluten-free", "Dairy-free"};
