@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -37,7 +38,6 @@ public class RecipeViewModel extends AndroidViewModel {
     }
 
     public RecipeViewModel(@NonNull Application application) {
-
         super(application);
         executor = Executors.newSingleThreadExecutor();
         handler = new Handler(Looper.getMainLooper());

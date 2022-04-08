@@ -115,15 +115,7 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     private void searchRecords(String item) throws ExecutionException, InterruptedException {
-        // TODO
-        //  Make a call to the view model to search for records in the database that match the query item.
-        //  Make sure that the results are sorted appropriately
         ArrayList<Recipe> list = (ArrayList<Recipe>) recipeViewModel.getItems(item);
-        // TODO
-        //  Update the results section.
-        //  If there are no results, set the results TextView to indicate that there are no results.
-        //  If there are results, set the results TextView to indicate that there are results.
-        //  Again, you might need to write a bit of extra code here or elsewhere, to get the UI to behave nicely
 
         if(list.isEmpty()){
             Log.w("TAG", "empty list");
