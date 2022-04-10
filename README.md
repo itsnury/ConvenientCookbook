@@ -30,7 +30,7 @@ Paige Corbyn
 
 * DatabaseHelper.java - Class to set up SQLite databse for the application, creates a table for a recipe object. 
 
-* DBManager.java - Class containing methods to axct as queries on the database where required. Includes a listAllRecords() method as well as list methods for recipes with specific dietary restrictions met. DBmanager class also contains an insertRecord() which is used when a user posts a recipe. 
+* DBManager.java - Class containing methods to act as queries on the database where required. Includes a listAllRecords() method as well as list methods for recipes with specific dietary restrictions. DBmanager class also contains an insertRecord() which is used when a user posts a recipe. 
 
 * Recipe.java - Class representing a recipe object, includes getters and setters for all recipe attributes. 
 
