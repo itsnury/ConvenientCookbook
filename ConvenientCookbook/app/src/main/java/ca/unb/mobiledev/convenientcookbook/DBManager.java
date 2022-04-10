@@ -18,7 +18,7 @@ public class DBManager {
     }
 
     public Cursor listAllRecords() {
-        
+
         Cursor cursor = openReadOnlyDatabase().query(DatabaseHelper.TABLE_NAME, DatabaseHelper.COLUMNS, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
