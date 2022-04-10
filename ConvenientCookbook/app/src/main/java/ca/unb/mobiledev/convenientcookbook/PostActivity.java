@@ -76,8 +76,6 @@ public class PostActivity extends AppCompatActivity {
         // if submit button is pressed make sure none of the fields are empty
         // and send the data to JSON file
         submitBtn.setOnClickListener(v ->{
-            recipeId = Integer.toString(currentId);
-            currentId++;
             recipeName = nameTextbox.getText().toString();
             recipeDescription = descriptionTextbox.getText().toString();
             recipeIngredients = ingredientsTextbox.getText().toString();

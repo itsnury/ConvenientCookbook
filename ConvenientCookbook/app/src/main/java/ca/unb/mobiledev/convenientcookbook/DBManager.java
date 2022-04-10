@@ -19,7 +19,8 @@ public class DBManager {
 
     public Cursor listAllRecords() {
 
-        Cursor cursor = openReadOnlyDatabase().query(DatabaseHelper.TABLE_NAME, DatabaseHelper.COLUMNS, null, null, null, null, null);
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ?", new String[] {DatabaseHelper.RECIPE_ID});
+
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -27,9 +28,7 @@ public class DBManager {
     }
 
     public Cursor listVegetarianRecords() {
-        Cursor cursor = openReadOnlyDatabase().query(DatabaseHelper.TABLE_NAME,
-                DatabaseHelper.COLUMNS, "vegetarian=?", new String[]{"Vegetarian: yes\n"}, null, null,
-        dbHelper.RECIPE_ID + "ASC");
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND vegetarian LIKE 'Vegetarian: yes\n'", new String[] {DatabaseHelper.RECIPE_ID});
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -37,9 +36,7 @@ public class DBManager {
     }
 
     public Cursor listVeganRecords() {
-        Cursor cursor = openReadOnlyDatabase().query(DatabaseHelper.TABLE_NAME,
-                DatabaseHelper.COLUMNS, "vegan=?", new String[]{"Vegan: yes\n"}, null, null,
-                dbHelper.RECIPE_ID + "ASC");
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND vegan LIKE 'Vegan: yes\n'", new String[] {DatabaseHelper.RECIPE_ID});
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -47,9 +44,7 @@ public class DBManager {
     }
 
     public Cursor listDairyFreeRecords() {
-        Cursor cursor = openReadOnlyDatabase().query(DatabaseHelper.TABLE_NAME,
-                DatabaseHelper.COLUMNS, "dairyFree=?", new String[]{"Dairy Free: yes\n"}, null, null,
-                dbHelper.RECIPE_ID + "ASC");
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND dairyFree LIKE 'Dairy Free: yes\n'", new String[] {DatabaseHelper.RECIPE_ID});
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -57,9 +52,7 @@ public class DBManager {
     }
 
     public Cursor listGlutenFreeRecords() {
-        Cursor cursor = openReadOnlyDatabase().query(DatabaseHelper.TABLE_NAME,
-                DatabaseHelper.COLUMNS, "glutenFree=?", new String[]{"Gluten Free: yes\n"}, null, null,
-                dbHelper.RECIPE_ID + "ASC");
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND glutenFree LIKE 'Gluten Free: yes\n'", new String[] {DatabaseHelper.RECIPE_ID});
         if (cursor != null) {
             cursor.moveToFirst();
         }

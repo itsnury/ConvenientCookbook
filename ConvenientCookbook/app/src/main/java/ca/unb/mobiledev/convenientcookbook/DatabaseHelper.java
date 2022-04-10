@@ -28,9 +28,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_NAME + " (" + RECIPE_ID
                     + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + RECIPENAME + RECIPEDESCRIPTION + " TEXT, " + RECIPEINGREDIENTS + " TEXT, "
-                    + RECIPESTEPS + " TEXT, " + VEGETARIAN + " TEXT, " + VEGAN + " TEXT,"
-                    + GLUTENFREE + "TEXT," + DAIRYFREE + "TEXT);";
+                    + RECIPENAME + " TEXT, " + RECIPEDESCRIPTION + " TEXT, " + RECIPEINGREDIENTS + " TEXT, "
+                    + RECIPESTEPS + " TEXT, " + VEGETARIAN + " TEXT, " + VEGAN + " TEXT, "
+                    + GLUTENFREE + "TEXT, " + DAIRYFREE + "TEXT);";
 
     DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
