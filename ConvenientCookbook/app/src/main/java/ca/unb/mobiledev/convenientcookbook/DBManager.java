@@ -3,6 +3,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class DBManager {
     private final DatabaseHelper dbHelper;
@@ -17,6 +18,7 @@ public class DBManager {
     }
 
     public Cursor listAllRecords() {
+        
         Cursor cursor = openReadOnlyDatabase().query(DatabaseHelper.TABLE_NAME, DatabaseHelper.COLUMNS, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();

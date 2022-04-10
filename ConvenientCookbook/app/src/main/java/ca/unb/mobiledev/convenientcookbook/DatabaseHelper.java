@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_NAME + " (" + RECIPE_ID
                     + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + RECIPENAME + RECIPEDESCRIPTION + " TEXT, " + RECIPEINGREDIENTS + " TEXT, "
-                    + RECIPESTEPS + " TEXT, " + VEGETARIAN + " TEXT, " + VEGETARIAN + " TEXT,"
+                    + RECIPESTEPS + " TEXT, " + VEGETARIAN + " TEXT, " + VEGAN + " TEXT,"
                     + GLUTENFREE + "TEXT," + DAIRYFREE + "TEXT);";
 
     DatabaseHelper(Context context) {

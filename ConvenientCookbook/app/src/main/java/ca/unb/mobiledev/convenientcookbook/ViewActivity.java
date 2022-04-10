@@ -1,6 +1,7 @@
 package ca.unb.mobiledev.convenientcookbook;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,13 +28,18 @@ import java.util.concurrent.Executors;
 import ca.unb.mobiledev.convenientcookbook.model.Recipe;
 
 public class ViewActivity extends AppCompatActivity {
-    private RecipeViewModel recipeViewModel;
+    //private RecipeViewModel recipeViewModel;
+    private DBManager dbManager;
+    private ExecutorService executor;
+    private List<Recipe> list = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
 
+        dbManager = new DBManager(ViewActivity.this);
+        executor = Executors.newSingleThreadExecutor();
 
         Spinner spinner = (Spinner) findViewById(R.id.dropdown_menu);
         //String[] dropdown = new String[]{"Vegetarian", "Vegan", "Gluten-free", "Dairy-free"};
@@ -104,8 +110,8 @@ public class ViewActivity extends AppCompatActivity {
         });
 
         // Set the ViewModel
-        recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
-        recipeViewModel.setParent(ViewActivity.this);
+        //recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
+        //recipeViewModel.setParent(ViewActivity.this);
     }
 
     public void show(ArrayList<Recipe> list){
@@ -114,15 +120,53 @@ public class ViewActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    private void searchRecords(String item) throws ExecutionException, InterruptedException {
-        ArrayList<Recipe> list = (ArrayList<Recipe>) recipeViewModel.getItems(item);
-
-        if(list.isEmpty()){
-            Log.w("TAG", "empty list");
+    private void searchRecords(String filter) throws ExecutionException, InterruptedException {
+        //ArrayList<Recipe> list = (ArrayList<Recipe>) recipeViewModel.getItems(item);
+        if(list == null){
+            updateItemsList(filter);
         }else{
-            Log.w("TAG", "not empty");
-
-            show(list);
+            show((ArrayList<Recipe>) list);
         }
+    }
+
+    public void updateItemsList(String filter) throws ExecutionException, InterruptedException {
+        executor.execute(()-> {
+            Cursor cursor;
+            if (filter.equals("vegetarian")) {
+                cursor = dbManager.listVegetarianRecords();
+            } else if (filter.equals("vegan")) {
+                cursor = dbManager.listVeganRecords();
+            } else if (filter.equals("Gluten-free")) {
+                cursor = dbManager.listGlutenFreeRecords();
+            } else if (filter.equals("Dairy-free")) {
+                cursor = dbManager.listDairyFreeRecords();
+            } else {
+                cursor = dbManager.listAllRecords();
+            }
+
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("recipeName"));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow("recipeDescription"));
+                String ingredients = cursor.getString(cursor.getColumnIndexOrThrow("recipeIngredients"));
+                String steps = cursor.getString(cursor.getColumnIndexOrThrow("recipeSteps"));
+                String isVegetarian = cursor.getString(cursor.getColumnIndexOrThrow("vegetarian"));
+                String isVegan = cursor.getString(cursor.getColumnIndexOrThrow("vegan"));
+                String isGlutenFree = cursor.getString(cursor.getColumnIndexOrThrow("glutenFree"));
+                String isDairyFree = cursor.getString(cursor.getColumnIndexOrThrow("dairyFree"));
+
+                list.add(new Recipe.Builder(id, name, description, ingredients, steps, isVegetarian,
+                        isVegan, isGlutenFree, isDairyFree).build());
+
+                cursor.moveToNext();
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        dbManager.close();
     }
 }

@@ -12,11 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.lang.String;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import ca.unb.mobiledev.convenientcookbook.model.Recipe;
 
 public class PostActivity extends AppCompatActivity {
-
+    private ExecutorService executor;
+    private DBManager dbManager;
 
     private EditText nameTextbox;
     private EditText descriptionTextbox;
@@ -38,11 +41,7 @@ public class PostActivity extends AppCompatActivity {
     private CheckBox dairyFreeCheckbox;
     private CheckBox glutenFreeCheckbox;
 
-    private RecipeViewModel recipeViewModel;
-
-    private DBManager dbManager;
-
-
+    //private RecipeViewModel recipeViewModel;
 
     private int currentId = 0;
 
@@ -50,6 +49,9 @@ public class PostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+
+        executor = Executors.newSingleThreadExecutor();
+        dbManager = new DBManager(PostActivity.this);
 
         nameTextbox = findViewById(R.id.nameTextbox);
         descriptionTextbox = findViewById(R.id.descriptionTextbox);
@@ -61,11 +63,9 @@ public class PostActivity extends AppCompatActivity {
         dairyFreeCheckbox = findViewById(R.id.dairyFreeCheckbox);
         glutenFreeCheckbox = findViewById(R.id.glutenFreeCheckbox);
 
-        recipeViewModel.setParent(PostActivity.this);
+        //recipeViewModel.setParent(PostActivity.this);
 
         Button submitBtn = findViewById(R.id.submitBtn);
-
-        dbManager = new DBManager(PostActivity.this);
 
         nameTextbox.setFocusableInTouchMode(true);
         nameTextbox.requestFocus();
@@ -108,7 +108,7 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-        recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
+        //recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
     }
 
     public void onCheckboxClicked(View v){
@@ -149,7 +149,17 @@ public class PostActivity extends AppCompatActivity {
     private void addRecipe(Recipe recipe) {
         // TODO
         //  Make a call to the view model to create a record in the database table
+        executor.execute(()->{
+            dbManager.insertRecord(recipe.getId(), recipe.getName(), recipe.getDescription(),
+                    recipe.getIngredients(), recipe.getSteps(), recipe.isVegetarian(),recipe.isVegan(),
+                    recipe.isGlutenFree(), recipe.isDairyFree());
+        });
+        //recipeViewModel.addRecord(recipe);
+    }
 
-        recipeViewModel.addRecord(recipe);
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        dbManager.close();
     }
 }
