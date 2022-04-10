@@ -36,4 +36,3 @@ Paige Corbyn
 
 * MyAdapter.java - Interface class for implementing the RecyclerView for ViewActivity.java
 
-* RecipeViewModel.java - Class used to implement the Android ViewModel to display all recipes and their specific details for users on the view page
