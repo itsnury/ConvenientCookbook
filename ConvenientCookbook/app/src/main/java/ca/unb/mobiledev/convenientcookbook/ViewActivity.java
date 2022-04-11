@@ -1,23 +1,16 @@
 package ca.unb.mobiledev.convenientcookbook;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +24,6 @@ public class ViewActivity extends AppCompatActivity {
     //private RecipeViewModel recipeViewModel;
     private DBManager dbManager;
     private ExecutorService executor;
-    private List<Recipe> list = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +34,6 @@ public class ViewActivity extends AppCompatActivity {
         executor = Executors.newSingleThreadExecutor();
 
         Spinner spinner = (Spinner) findViewById(R.id.dropdown_menu);
-        //String[] dropdown = new String[]{"Vegetarian", "Vegan", "Gluten-free", "Dairy-free"};
 
         ArrayAdapter<CharSequence> dropdownAdapter = ArrayAdapter.createFromResource(this, R.array.dropdown,android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dropdownAdapter);
@@ -108,10 +99,6 @@ public class ViewActivity extends AppCompatActivity {
                 }
             }
         });
-
-        // Set the ViewModel
-        //recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
-        //recipeViewModel.setParent(ViewActivity.this);
     }
 
     public void show(ArrayList<Recipe> list){
@@ -121,16 +108,11 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     private void searchRecords(String filter) throws ExecutionException, InterruptedException {
-        //ArrayList<Recipe> list = (ArrayList<Recipe>) recipeViewModel.getItems(item);
-        list = new ArrayList<Recipe>();
-        if(list == null){
-            updateItemsList(filter);
-        }else{
-            show((ArrayList<Recipe>) list);
-        }
+        show(updateItemsList(filter));
     }
 
-    public void updateItemsList(String filter) throws ExecutionException, InterruptedException {
+    public ArrayList<Recipe> updateItemsList(String filter) throws ExecutionException, InterruptedException {
+        ArrayList<Recipe> list = new ArrayList<Recipe>();
         executor.execute(()-> {
             Cursor cursor;
             if (filter.equals("vegetarian")) {
@@ -144,6 +126,8 @@ public class ViewActivity extends AppCompatActivity {
             } else {
                 cursor = dbManager.listAllRecords();
             }
+
+            Log.d("TAG", Integer.toString(cursor.getCount()));
 
             if(cursor != null) {
                 cursor.moveToFirst();
@@ -166,6 +150,7 @@ public class ViewActivity extends AppCompatActivity {
                 cursor.close();
             }
         });
+        return list;
     }
 
     @Override

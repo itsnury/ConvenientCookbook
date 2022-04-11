@@ -83,20 +83,12 @@ public class PostActivity extends AppCompatActivity {
             recipeIngredients = ingredientsTextbox.getText().toString();
             recipeSteps = stepsTextbox.getText().toString();
 
-            if(isVegetarian.matches("")){
-                isVegetarian = "Vegetarian: no\n";
-            }else if(isVegan.matches("")){
-                isVegan = "Vegan: no\n";
-            }else if(isDairyFree.matches("")){
-                isDairyFree = "Dairy Free: no\n";
-            }else if(isGlutenFree.matches("")){
-                isGlutenFree = "Gluten Free: no\n";
-            }
-
             if(!(recipeName.matches("") || recipeDescription.matches("") ||
                     recipeIngredients.matches("") || recipeSteps.matches(""))){
-                Recipe recipe = new Recipe.Builder(recipeId, recipeName, recipeDescription, recipeIngredients, recipeSteps,
-                        isVegetarian, isVegan, isGlutenFree, isDairyFree).build();
+
+                Recipe recipe = new Recipe.Builder(recipeId, recipeName + "\n\n", "Description\n" +
+                        recipeDescription + "\n\n", "Ingredients:\n" + recipeIngredients + "\n\n",
+                        "Steps:\n" + recipeSteps + "\n\n", isVegetarian, isVegan, isGlutenFree, isDairyFree).build();
                 addRecipe(recipe);
 
                 startActivity(new Intent(PostActivity.this,ViewActivity.class));
@@ -121,29 +113,21 @@ public class PostActivity extends AppCompatActivity {
             case R.id.vegetarianCheckbox:
                 if(checked){
                     isVegetarian = "Vegetarian: yes\n";
-                }else{
-                    isVegetarian = "Vegetarian: no\n";
                 }
                 break;
             case R.id.veganCheckbox:
                 if(checked){
                     isVegan = "Vegan: yes\n";
-                }else{
-                    isVegan = "Vegan: no\n";
                 }
                 break;
             case R.id.dairyFreeCheckbox:
                 if(checked){
                     isDairyFree = "Dairy Free: yes\n";
-                }else{
-                    isDairyFree = "Dairy Free: no\n";
                 }
                 break;
             case R.id.glutenFreeCheckbox:
                 if(checked){
                     isGlutenFree = "Gluten Free: yes\n";
-                }else{
-                    isGlutenFree = "Gluten Free: no\n";
                 }
         }
     }
