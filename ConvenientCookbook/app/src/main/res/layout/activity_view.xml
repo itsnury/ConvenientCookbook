@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
     ></Spinner>
+    <Button
+        android:id="@+id/postviewBtn"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Post"
+        android:layout_toRightOf="@id/dropdown_menu">
+    </Button>
     <androidx.recyclerview.widget.RecyclerView
         android:id = "@+id/recycler_view"
         android:layout_width="match_parent"

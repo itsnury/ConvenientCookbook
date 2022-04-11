@@ -27,7 +27,7 @@ public class DBManager {
     }
 
     public Cursor listVegetarianRecords() {
-        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE vegetarian = ?", new String[] {"Vegetarian: yes\n"});
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE LTRIM(RTRIM(vegetarian)) <> ''", null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -35,7 +35,7 @@ public class DBManager {
     }
 
     public Cursor listVeganRecords() {
-        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND vegan = ?", new String[] {"Vegan: yes\n"});
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE LTRIM(RTRIM(vegan)) <> ''", null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -43,7 +43,7 @@ public class DBManager {
     }
 
     public Cursor listDairyFreeRecords() {
-        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND dairyFree = ?", new String[] {"Dairy Free: yes\n"});
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE LTRIM(RTRIM(dairyFree)) <> ''", null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -51,7 +51,7 @@ public class DBManager {
     }
 
     public Cursor listGlutenFreeRecords() {
-        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND glutenFree = ?", new String[] {"Gluten Free: yes\n"});
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE LTRIM(RTRIM(glutenFree)) <> ''", null);
         if (cursor != null) {
             cursor.moveToFirst();
         }

@@ -1,5 +1,6 @@
 package ca.unb.mobiledev.convenientcookbook;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -33,10 +35,16 @@ public class ViewActivity extends AppCompatActivity {
         dbManager = new DBManager(ViewActivity.this);
         executor = Executors.newSingleThreadExecutor();
 
+        Button postBtn = (Button) findViewById(R.id.postviewBtn);
+
         Spinner spinner = (Spinner) findViewById(R.id.dropdown_menu);
 
         ArrayAdapter<CharSequence> dropdownAdapter = ArrayAdapter.createFromResource(this, R.array.dropdown,android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dropdownAdapter);
+
+        postBtn.setOnClickListener(v ->{
+            startActivity(new Intent(ViewActivity.this, PostActivity.class));
+        });
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -113,15 +121,16 @@ public class ViewActivity extends AppCompatActivity {
 
     public ArrayList<Recipe> updateItemsList(String filter) throws ExecutionException, InterruptedException {
         ArrayList<Recipe> list = new ArrayList<Recipe>();
+        Log.d("filter", filter);
         executor.execute(()-> {
             Cursor cursor;
             if (filter.equals("vegetarian")) {
                 cursor = dbManager.listVegetarianRecords();
             } else if (filter.equals("vegan")) {
                 cursor = dbManager.listVeganRecords();
-            } else if (filter.equals("Gluten-free")) {
+            } else if (filter.equals("gluten free")) {
                 cursor = dbManager.listGlutenFreeRecords();
-            } else if (filter.equals("Dairy-free")) {
+            } else if (filter.equals("dairy free")) {
                 cursor = dbManager.listDairyFreeRecords();
             } else {
                 cursor = dbManager.listAllRecords();
