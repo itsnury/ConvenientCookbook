@@ -4,7 +4,7 @@ CS2063 Project
 # Introduction
 The Convenient Cookbook app is a mobile android application built for CS2063.
 ## Functionaility
-Users can either view recipes that have already been posted to the app or post their own recipe. When viewing recipes users can select filters for specific dietary restrictions to find recipes that work best for them, users can also see all the details required to recreate the recipe themselves. If a user chooses to post their own recipe they will be given a template to fill out with fields such as the recipe name, description, ingredients, steps to make it and what dietary restrictions it meets. 
+Users can either view recipes that have already been posted to the app or post their own recipe. When viewing recipes users can select filters for specific dietary restrictions to find recipes that work best for them, users can also see all the details required to recreate the recipe themselves. If a user chooses to post their own recipe they will be given a template to fill out with fields such as the recipe name, description, ingredients, steps to make it and what dietary restrictions it meets. The app also supports both portrait and landscape orientations.
 
 # Contributors
 Nury Kim (Project Manager)
