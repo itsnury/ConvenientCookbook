@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_height="match_parent"
-     android:layout_width="match_parent">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 <LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,7 +20,7 @@
         android:text="@string/post_page"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:paddingLeft="135dp"
+        android:paddingLeft="325dp"
         android:paddingTop="10dp">
     </TextView>
 

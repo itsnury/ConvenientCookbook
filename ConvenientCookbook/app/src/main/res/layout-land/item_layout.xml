@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:textStyle="bold"
+    android:textSize="16dp"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:textAppearance="?attr/textAppearanceListItem"
+    android:scrollbars = "vertical"
+    android:background="@drawable/textview_border"
+    android:id="@+id/item_textview">
+</TextView>

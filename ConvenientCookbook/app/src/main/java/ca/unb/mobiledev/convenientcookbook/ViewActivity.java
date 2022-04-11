@@ -42,6 +42,14 @@ public class ViewActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> dropdownAdapter = ArrayAdapter.createFromResource(this, R.array.dropdown,android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dropdownAdapter);
 
+        try {
+            searchRecords("all");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         postBtn.setOnClickListener(v ->{
             startActivity(new Intent(ViewActivity.this, PostActivity.class));
         });
