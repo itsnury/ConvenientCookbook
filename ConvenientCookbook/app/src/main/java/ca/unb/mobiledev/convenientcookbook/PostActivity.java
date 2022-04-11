@@ -1,7 +1,9 @@
 package ca.unb.mobiledev.convenientcookbook;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -96,6 +98,8 @@ public class PostActivity extends AppCompatActivity {
                 Recipe recipe = new Recipe.Builder(recipeId, recipeName, recipeDescription, recipeIngredients, recipeSteps,
                         isVegetarian, isVegan, isGlutenFree, isDairyFree).build();
                 addRecipe(recipe);
+
+                startActivity(new Intent(PostActivity.this,ViewActivity.class));
             }else{
                 Context context = getApplicationContext();
                 String text = "All fields are required.";

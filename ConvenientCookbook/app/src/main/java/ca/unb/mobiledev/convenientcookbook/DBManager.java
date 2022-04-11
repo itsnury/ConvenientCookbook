@@ -18,8 +18,7 @@ public class DBManager {
     }
 
     public Cursor listAllRecords() {
-
-        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ?", new String[] {DatabaseHelper.RECIPE_ID});
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME, null);
 
         if (cursor != null) {
             cursor.moveToFirst();
@@ -28,7 +27,7 @@ public class DBManager {
     }
 
     public Cursor listVegetarianRecords() {
-        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND vegetarian LIKE 'Vegetarian: yes\n'", new String[] {DatabaseHelper.RECIPE_ID});
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE vegetarian LIKE '?'", new String[] {"Vegetarian: yes\n"});
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -36,7 +35,7 @@ public class DBManager {
     }
 
     public Cursor listVeganRecords() {
-        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND vegan LIKE 'Vegan: yes\n'", new String[] {DatabaseHelper.RECIPE_ID});
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND vegan LIKE '?'", new String[] {"Vegan: yes\n"});
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -44,7 +43,7 @@ public class DBManager {
     }
 
     public Cursor listDairyFreeRecords() {
-        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND dairyFree LIKE 'Dairy Free: yes\n'", new String[] {DatabaseHelper.RECIPE_ID});
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND dairyFree LIKE '?'", new String[] {"Dairy Free: yes\n"});
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -52,7 +51,7 @@ public class DBManager {
     }
 
     public Cursor listGlutenFreeRecords() {
-        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND glutenFree LIKE 'Gluten Free: yes\n'", new String[] {DatabaseHelper.RECIPE_ID});
+        Cursor cursor = openReadOnlyDatabase().rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME + " WHERE id = ? AND glutenFree LIKE '?'", new String[] {"Gluten Free: yes\n"});
         if (cursor != null) {
             cursor.moveToFirst();
         }
@@ -72,6 +71,14 @@ public class DBManager {
         contentValue.put(DatabaseHelper.GLUTENFREE, glutenFree);
         contentValue.put(DatabaseHelper.DAIRYFREE, dairyFree);
         openWriteDatabase().insert(DatabaseHelper.TABLE_NAME, null, contentValue);
+
+//        String query = "INSERT INTO "+ DatabaseHelper.TABLE_NAME + " VALUES (?,?,?,?,?,?,?,?,?), (" + id + ",'" + recipeName + "','" +
+//                recipeDescription + "','" + recipeIngredients + "','" + recipeSteps + "','" + vegetarian + "','" +
+//                vegan + "','" + glutenFree + "','" + dairyFree + "')";
+//        openWriteDatabase().execSQL(query, new String[] {DatabaseHelper.RECIPE_ID, DatabaseHelper.RECIPENAME,
+//        DatabaseHelper.RECIPEDESCRIPTION, DatabaseHelper.RECIPEINGREDIENTS, DatabaseHelper.RECIPESTEPS,
+//        DatabaseHelper.VEGETARIAN, DatabaseHelper.VEGAN, DatabaseHelper.GLUTENFREE, DatabaseHelper.DAIRYFREE});
+        close();
     }
 
     private SQLiteDatabase openReadOnlyDatabase() {

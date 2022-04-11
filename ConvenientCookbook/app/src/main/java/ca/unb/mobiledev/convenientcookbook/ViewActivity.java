@@ -122,6 +122,7 @@ public class ViewActivity extends AppCompatActivity {
 
     private void searchRecords(String filter) throws ExecutionException, InterruptedException {
         //ArrayList<Recipe> list = (ArrayList<Recipe>) recipeViewModel.getItems(item);
+        list = new ArrayList<Recipe>();
         if(list == null){
             updateItemsList(filter);
         }else{
@@ -144,22 +145,25 @@ public class ViewActivity extends AppCompatActivity {
                 cursor = dbManager.listAllRecords();
             }
 
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
-                String name = cursor.getString(cursor.getColumnIndexOrThrow("recipeName"));
-                String description = cursor.getString(cursor.getColumnIndexOrThrow("recipeDescription"));
-                String ingredients = cursor.getString(cursor.getColumnIndexOrThrow("recipeIngredients"));
-                String steps = cursor.getString(cursor.getColumnIndexOrThrow("recipeSteps"));
-                String isVegetarian = cursor.getString(cursor.getColumnIndexOrThrow("vegetarian"));
-                String isVegan = cursor.getString(cursor.getColumnIndexOrThrow("vegan"));
-                String isGlutenFree = cursor.getString(cursor.getColumnIndexOrThrow("glutenFree"));
-                String isDairyFree = cursor.getString(cursor.getColumnIndexOrThrow("dairyFree"));
+            if(cursor != null) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                    String name = cursor.getString(cursor.getColumnIndexOrThrow("recipeName"));
+                    String description = cursor.getString(cursor.getColumnIndexOrThrow("recipeDescription"));
+                    String ingredients = cursor.getString(cursor.getColumnIndexOrThrow("recipeIngredients"));
+                    String steps = cursor.getString(cursor.getColumnIndexOrThrow("recipeSteps"));
+                    String isVegetarian = cursor.getString(cursor.getColumnIndexOrThrow("vegetarian"));
+                    String isVegan = cursor.getString(cursor.getColumnIndexOrThrow("vegan"));
+                    String isGlutenFree = cursor.getString(cursor.getColumnIndexOrThrow("glutenFree"));
+                    String isDairyFree = cursor.getString(cursor.getColumnIndexOrThrow("dairyFree"));
 
-                list.add(new Recipe.Builder(id, name, description, ingredients, steps, isVegetarian,
-                        isVegan, isGlutenFree, isDairyFree).build());
+                    list.add(new Recipe.Builder(id, name, description, ingredients, steps, isVegetarian,
+                            isVegan, isGlutenFree, isDairyFree).build());
 
-                cursor.moveToNext();
+                    cursor.moveToNext();
+                }
+                cursor.close();
             }
         });
     }
