@@ -19,6 +19,7 @@ Paige Corbyn
 * Pull the most recent version of the application and open in Android Studio
 
 * Build the project before running, either run using an android emulator or with a physical device for testing
+    * Ensure that any device or emulator works with the supported API levels (23, 26 & 27)
 
 # Project files
 
